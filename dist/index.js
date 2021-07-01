@@ -123,7 +123,7 @@ function getMetamask(browser, options = {}) {
             }),
             switchNetwork: (network = "main") => __awaiter(this, void 0, void 0, function* () {
                 yield metamaskPage.bringToFront();
-                const networkSwitcher = yield metamaskPage.waitForSelector(".network-indicator");
+                const networkSwitcher = yield metamaskPage.waitForSelector("div.network-display.chip.chip--with-left-icon.chip--with-right-icon.chip--ui-3");
                 yield networkSwitcher.click();
                 yield metamaskPage.waitForSelector("li.dropdown-menu-item");
                 const networkIndex = yield metamaskPage.evaluate((network) => {
@@ -203,6 +203,22 @@ function getMetamask(browser, options = {}) {
                 const permissionApprovalSelector = ".permission-approval-container__footers button.button.btn-primary";
                 const permissionApprovalButton = yield metamaskPage.waitForSelector(permissionApprovalSelector);
                 yield permissionApprovalButton.click();
+                yield waitForUnlockedScreen(metamaskPage);
+            }),
+            closeNewsPopup: () => __awaiter(this, void 0, void 0, function* () {
+                yield metamaskPage.bringToFront();
+                yield metamaskPage.reload();
+                const closePopupSelector = 'section.popover-wrap.whats-new-popup__popover button.fas.fa-times.popover-header__button'
+                
+                try {
+                    var buttonClosePopup = yield metamaskPage.waitForSelector(closePopupSelector, {timeout: 1000});
+                    do {
+                        yield buttonClosePopup.click();
+                        yield metamaskPage.reload();
+                        buttonClosePopup = yield metamaskPage.waitForSelector(closePopupSelector, {timeout: 1000});
+                    } while (buttonClosePopup);
+                } catch (error) { }
+
                 yield waitForUnlockedScreen(metamaskPage);
             }),
         };

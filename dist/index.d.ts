@@ -22,6 +22,7 @@ export declare type Dappeteer = {
     confirmTransaction: (options?: TransactionOptions) => Promise<void>;
     sign: () => Promise<void>;
     approve: (options: ApproveOptions) => Promise<void>;
+    closeNewsPopup: () => Promise<void>;
 };
 export declare type TransactionOptions = {
     gas: number;
