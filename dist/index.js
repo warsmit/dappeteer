@@ -27,8 +27,8 @@ function launch(puppeteer, options = {}) {
     return __awaiter(this, void 0, void 0, function* () {
         const { args, headless } = options, rest = __rest(options, ["args", "headless"]);
         const { metamaskVersion, metamaskPath } = options;
-        const METAMASK_VERSION = metamaskVersion || "9.7.0";
-        console["log"](path.join(__dirname, `metamask/${METAMASK_VERSION}`));
+        const METAMASK_VERSION = metamaskVersion || "10.0.1";
+        // console["log"](path.join(__dirname, `metamask/${METAMASK_VERSION}`));
         const METAMASK_PATH = metamaskPath || path.resolve(__dirname, "..", "metamask", METAMASK_VERSION);
         return puppeteer.launch(Object.assign({ headless: headless || false, args: [
                 `--disable-extensions-except=${METAMASK_PATH}`,
